@@ -1,0 +1,30 @@
+﻿@model MovieApp.Web.Models.Movie // Sayfanın Model'i'
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+    </title>
+    <link href="/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+    <h1>Film Listesi</h1>
+    <div id="filmler">
+
+        <div class="film">
+            <p>@Model.Tilte</p>
+            <p>@Model.Description</p>
+            <p>@Model.Director</p>
+            <p>
+                <ul>
+                    @foreach (string oyuncu in Model.Cast)
+                    {
+                        <li>@oyuncu</li>
+                    }
+                </ul>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
