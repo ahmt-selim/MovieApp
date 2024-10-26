@@ -7,15 +7,8 @@
             <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title">@Model.Tilte</h5>
-                    <p class="card-text">@Model.Description</p>
-                    <p class="card-text">@Model.Director</p>
-                    <p class="card-text">
-                        <ul>
-                            @foreach (string oyuncu in Model.Cast)
-                            {
-                                <li>@oyuncu</li>
-                            }
-                        </ul>
+                    <p>
+                        <a class="btn btn-primary" href="/movies/details/@Model.movie_id">Detail</a>
                     </p>
                 </div>
             </div>
