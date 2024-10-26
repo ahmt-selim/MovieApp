@@ -23,7 +23,16 @@ namespace MovieApp.Web.Controllers
                 new Movie { Tilte = "Film 3", Description = "Açıklama 3", Director = "Yönetmen 3", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "3.jpg" },
                 new Movie { Tilte = "Film 4", Description = "Açıklama 4", Director = "Yönetmen 4", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "4.jpg" }
             };
-            return View("Movies", filmListesi);
+
+            
+
+            var model = new MovieGenreViewModel()
+            {
+                Movies = filmListesi
+            };
+
+
+            return View("Movies", model);
         }
         //localhost:5000/movies/details
         public string Details()
