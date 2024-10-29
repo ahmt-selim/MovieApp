@@ -13,14 +13,14 @@ namespace MovieApp.Web.Data
         {
             _movies = new List<Movie>()
             {
-                new Movie { movie_id = 1, Tilte = "Film 1", Description = "Açıklama 1", Director = "Yönetmen 1", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "1.jpg"},
-                new Movie { movie_id = 2,Tilte = "Film 2", Description = "Açıklama 2", Director = "Yönetmen 2", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "2.jpg" },
-                new Movie { movie_id = 3,Tilte = "Film 3", Description = "Açıklama 3", Director = "Yönetmen 3", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "3.jpg" },
-                new Movie { movie_id = 4,Tilte = "Film 4", Description = "Açıklama 4", Director = "Yönetmen 4", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "4.jpg" },
-                new Movie { movie_id = 5, Tilte = "Film 1", Description = "Açıklama 1", Director = "Yönetmen 1", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "1.jpg"},
-                new Movie { movie_id = 6,Tilte = "Film 2", Description = "Açıklama 2", Director = "Yönetmen 2", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "2.jpg" },
-                new Movie { movie_id = 7,Tilte = "Film 3", Description = "Açıklama 3", Director = "Yönetmen 3", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "3.jpg" },
-                new Movie { movie_id = 8,Tilte = "Film 4", Description = "Açıklama 4", Director = "Yönetmen 4", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "4.jpg" }
+                new Movie { movie_id = 1, Tilte = "Film 1", Description = "Açıklama 1", Director = "Yönetmen 1", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "1.jpg", genre_id=1},
+                new Movie { movie_id = 2,Tilte = "Film 2", Description = "Açıklama 2", Director = "Yönetmen 2", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "2.jpg" , genre_id=4},
+                new Movie { movie_id = 3,Tilte = "Film 3", Description = "Açıklama 3", Director = "Yönetmen 3", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "3.jpg" , genre_id=4},
+                new Movie { movie_id = 4,Tilte = "Film 4", Description = "Açıklama 4", Director = "Yönetmen 4", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "4.jpg" , genre_id=3},
+                new Movie { movie_id = 5, Tilte = "Film 1", Description = "Açıklama 1", Director = "Yönetmen 1", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "1.jpg", genre_id=3},
+                new Movie { movie_id = 6,Tilte = "Film 2", Description = "Açıklama 2", Director = "Yönetmen 2", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "2.jpg" , genre_id=1},
+                new Movie { movie_id = 7,Tilte = "Film 3", Description = "Açıklama 3", Director = "Yönetmen 3", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "3.jpg" , genre_id=3},
+                new Movie { movie_id = 8,Tilte = "Film 4", Description = "Açıklama 4", Director = "Yönetmen 4", Cast = new string[] { "oyuncu 1", "oyuncu 2" },ImageUrl = "4.jpg" , genre_id=1}
 
             };
         }

@@ -13,5 +13,6 @@ namespace MovieApp.Web.Models
         public string Director { get; set; }
         public string[] Cast { get; set; }
         public string ImageUrl { get; set; }
+        public int genre_id { get; set; }
     }
 }
