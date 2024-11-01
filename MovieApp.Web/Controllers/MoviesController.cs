@@ -35,7 +35,7 @@ namespace MovieApp.Web.Controllers
             }
             if (!string.IsNullOrEmpty(q))
             {
-                movies = movies.Where(i => i.Tilte.ToLower().Contains(q.ToLower()) 
+                movies = movies.Where(i => i.Title.ToLower().Contains(q.ToLower()) 
                 || i.Description.ToLower().Contains(q.ToLower())).ToList();
             }
             var model = new MoviesViewModel()
@@ -44,13 +44,50 @@ namespace MovieApp.Web.Controllers
             };
 
 
-            return View("Movies", model);
+            return View("Movies", model);//"Movies" ismindeki view çalışır ilk parametreden dolayı
         }
         //localhost:5000/movies/details/1
+        [HttpGet]
         public IActionResult Details(int id)
         {
 
             return View(MovieRepository.GetById(id));
+        }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        //public IActionResult Create(string Title, string Description, string Director, string ImageUrl, int genre_id) //Alternatif olarak bu şekilde de kullanılabilir.
+        public IActionResult Create(Movie m)
+        {
+            //Model Binding
+
+            //var m = new Movie()
+            //{
+            //    Title = Title,
+            //    Description = Description,
+            //    Director = Director,
+            //    ImageUrl = ImageUrl,
+            //    genre_id = genre_id
+            //};
+
+            MovieRepository.Add(m);
+            //return RedirectToAction("Index", "Home"); //Bu şekilde 2. bir parametre tanımalandığı zaman Home controllerı altındaki index metoduna yönlendirilecektir.
+            return RedirectToAction("List");
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            return View(MovieRepository.GetById(id));
+        }
+        [HttpPost]
+        public IActionResult Edit(Movie m)
+        {
+            MovieRepository.Edit(m);
+            // /movies/details/1
+            return RedirectToAction("Details", "Movies", new { @id = m.movie_id }); //Yönlendirdiğimiz details formu id parametresini istediği için burada bu şekilde ekleme yaptık.
         }
     }
 }

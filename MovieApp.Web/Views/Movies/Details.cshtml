@@ -8,17 +8,20 @@
         </div>
         <div class="col-md-3">
             <div class="card-body">
-                <h5 class="card-tittle">@Model.Tilte</h5>
+                <h5 class="card-tittle">@Model.Title</h5>
                 <p class="card-text">@Model.Description</p>
                 <p class="card-text">@Model.Director</p>
-                <p>
-                    <ul>
-                        @foreach (var item in Model.Cast)
-                        {
-                            <li>@item</li>
-                        }
-                    </ul>
-                </p>
+                @if (Model.Cast != null)
+                {
+                    <p>
+                        <ul>
+                            @foreach (var item in Model.Cast)
+                            {
+                                <li>@item</li>
+                            }
+                        </ul>
+                    </p>
+                }
             </div>
         </div>
 

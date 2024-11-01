@@ -2,13 +2,14 @@
 <div class="card mb-3">
         <div class="row no-gutters">
             <div class="col-md-4">
-                <img src="/img/@Model.ImageUrl" alt="@Model.Tilte" width="200" height="300"/>
+                <img src="/img/@Model.ImageUrl" alt="@Model.Title" width="200" height="300"/>
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">@Model.Tilte</h5>
+                    <h5 class="card-title">@Model.Title</h5>
                     <p>
-                        <a class="btn btn-primary" href="/movies/details/@Model.movie_id">Detail</a>
+                        <a class="btn btn-primary" asp-controller="Movies" asp-action="Details" asp-route-id="@Model.movie_id" >Detail</a>
+                        <a class="btn btn-primary" asp-controller="Movies" asp-action="Edit" asp-route-id="@Model.movie_id">Edit</a>
                     </p>
                 </div>
             </div>

@@ -1,0 +1,31 @@
+﻿@model Movie
+
+<h1>Edit Movie</h1>
+
+<hr />
+<form method="post" asp-controller="Movies" asp-action="Edit">
+    <input type="hidden" name="movie_id" value="@Model.movie_id"/> @*Güncelleme için controllera gönderdiğimiz Movie nesnesinin id değerini burada sakladık.*@
+    <div class="form-group">
+        @*<label for="Title">Title</label>*@ @*TagHelper kütüphanesi ile aşağıdaki gibi yazabildik.*@
+        @*<input type="text" name="Title" class="form-control" />*@
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" value="@Model.Title" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control">@Model.Description</textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Director"></label>
+        <input asp-for="Director" class="form-control" value="@Model.Director"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageUrl"></label>
+        <input asp-for="ImageUrl" class="form-control" value="@Model.ImageUrl"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="genre_id"></label>
+        <input asp-for="genre_id" class="form-control" value="@Model.genre_id"/>
+    </div>
+    <button typr="submit" class="btn btn-primary">Submit</button>
+</form>
