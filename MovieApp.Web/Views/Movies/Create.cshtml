@@ -9,22 +9,33 @@
         @*<input type="text" name="Title" class="form-control" />*@
         <label asp-for="Title"></label>
         <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Description"></label>
         <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Director"></label>
         <input asp-for="Director" class="form-control" />
+        <span asp-validation-for="Director" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="ImageUrl"></label>
         <input asp-for="ImageUrl" class="form-control" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="genre_id"></label>
-        <input asp-for="genre_id" class="form-control" />
+        <select asp-for="genre_id" asp-items="@ViewBag.Genres" class="form-control">
+            <option selected disabled>Seçiniz</option>
+            @*<option value="1">Macera</option>
+            <option value="2">Komedi</option>
+            <option value="3">Romantik</option>
+            <option value="4">Savaş</option>*@
+        </select>
+        <span asp-validation-for="genre_id" class="text-danger"></span>
     </div>
     <button typr="submit" class="btn btn-primary">Submit</button>
 </form>

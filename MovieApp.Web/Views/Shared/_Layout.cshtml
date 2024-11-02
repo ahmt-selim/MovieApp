@@ -8,6 +8,8 @@
     <link href="/css/style.css" rel="stylesheet" />
 </head>
 <body>
+
+    @RenderSection("message", false)
     @await Html.PartialAsync("_navbar")
     @RenderSection("header", false) @* her Render sayfasında bu sectionu tanımlamak zorunda değilsek false diyoruz.*@
 

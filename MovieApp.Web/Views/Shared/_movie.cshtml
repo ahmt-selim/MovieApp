@@ -7,10 +7,16 @@
             <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title">@Model.Title</h5>
-                    <p>
+                    <div>
                         <a class="btn btn-primary" asp-controller="Movies" asp-action="Details" asp-route-id="@Model.movie_id" >Detail</a>
-                        <a class="btn btn-primary" asp-controller="Movies" asp-action="Edit" asp-route-id="@Model.movie_id">Edit</a>
-                    </p>
+                        <a class="btn btn-warning" asp-controller="Movies" asp-action="Edit" asp-route-id="@Model.movie_id">Edit</a>
+                    
+                        <form asp-controller="Movies" asp-action="Delete" method="post" style="display:inline;">
+                            <input type="hidden" name="movie_id" value="@Model.movie_id" />
+                            <input type="hidden" name="Title" value="@Model.Title" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

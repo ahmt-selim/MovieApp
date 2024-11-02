@@ -16,7 +16,8 @@ namespace MovieApp.Web.Models
                 new Genre{genre_id = 1, Name="Macera"},
                 new Genre{genre_id = 2,Name="Komedi"},
                 new Genre{genre_id = 3,Name="Romantik"},
-                new Genre{genre_id = 4,Name="Savaş"}
+                new Genre{genre_id = 4,Name="Savaş"},
+                 new Genre{genre_id = 5,Name="Bilim Kurgu"}
             };
         }
 

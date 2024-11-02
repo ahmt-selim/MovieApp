@@ -19,8 +19,15 @@
 
 
 </div>
+@if (TempData["Message"] != null)
+{
+    @section message{
+        @await Html.PartialAsync("_messageBox", TempData["Message"].ToString())
+    }
+}
+
 
 @section menu{
     @*@await Html.PartialAsync("_menu", Model.Genres)*@
-@await Component.InvokeAsync("Genres") 
+    @await Component.InvokeAsync("Genres")
 }
