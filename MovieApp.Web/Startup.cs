@@ -33,8 +33,10 @@ namespace MovieApp.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
+            {//Uygulama geliþtirme aþamasýnda olduðu bilgisini:
+                //Properties klasörüne çift týklayarak Debug kýsmýnda Environment variables kýsmýndan ayarlayabiliriz.
                 app.UseDeveloperExceptionPage();
+                DataSeeding.Seed(app);//Uygulama geliþtirme aþamasýnda veritabanýna eklenecek test verilerinin oluþturulduðu class
             }
             app.UseStaticFiles();
             app.UseRouting();
