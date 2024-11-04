@@ -1,0 +1,9 @@
+﻿Migrations komutları
+
+dotnet ef migrations add AddDirectorTable : yeni migration oluşturur.
+
+dotnet ef database update : oluşturulan migrationları veritabanına uygular.
+
+dotnet ef database update RemoveDirectorProperty : veritabanını ilgli migrationa günceller.
+
+dotnet ef migrations remove : son eklenen migrations'u projeden kaldırır.(Eğer bu uygulanmış migration ise hata verecektir.)
