@@ -18,36 +18,36 @@ namespace MovieApp.Web.Data
 
             context.Database.Migrate();//Uygulama ilk çalıştığında veritabanını kontrol ederek yok ise oluşturma işlemi
 
+            var genres = new List<Genre>()
+                    {
+                        new Genre{Name="Macera", Movies= new List<Movie>(){new Movie{Title="Yeni macera filmi 1",Description="Açıklama1", ImageUrl="1.jpg" },
+                                                                            new Movie{Title="Yeni macera filmi 2", Description="Açıklama2", ImageUrl="2.jpg"} } },
+                        new Genre{Name="Komedi"},
+                        new Genre{Name="Romantik"},
+                        new Genre{Name="Savaş"},
+                        new Genre{Name="Bilim Kurgu"}
+                    };
+            var movies = new List<Movie>()
+                    {
+                        new Movie {Title = "Film 1", Description = "Açıklama 1", ImageUrl = "1.jpg", Genre = genres[0]},
+                        new Movie {Title = "Film 2", Description = "Açıklama 2", ImageUrl = "2.jpg", Genre = genres[1]},
+                        new Movie {Title = "Film 3", Description = "Açıklama 3", ImageUrl = "3.jpg", Genre = genres[1]},
+                        new Movie {Title = "Film 4", Description = "Açıklama 4", ImageUrl = "4.jpg", Genre = genres[3]},
+                        new Movie {Title = "Film 1", Description = "Açıklama 1", ImageUrl = "1.jpg", Genre = genres[4]},
+                        new Movie {Title = "Film 2", Description = "Açıklama 2", ImageUrl = "2.jpg", Genre = genres[4]},
+                        new Movie {Title = "Film 3", Description = "Açıklama 3", ImageUrl = "3.jpg", Genre = genres[3]},
+                        new Movie {Title = "Film 4", Description = "Açıklama 4", ImageUrl = "4.jpg", Genre = genres[1]}
+
+                    };
             if (context.Database.GetPendingMigrations().Count() == 0)//Bütün migrationlar uygulanmışsa yani bekleyen bir migration yoksa 
             {
                 if (context.Movies.Count() == 0)//Daha önceden ilgili movies tablosuna veri eklenmişse yeni test verilerini eklemiyor.
                 {
-                    context.Movies.AddRange(new List<Movie>()
-            {
-                new Movie {Title = "Film 1", Description = "Açıklama 1", ImageUrl = "1.jpg", genre_id=1},
-                new Movie {Title = "Film 2", Description = "Açıklama 2", ImageUrl = "2.jpg", genre_id=4},
-                new Movie {Title = "Film 3", Description = "Açıklama 3", ImageUrl = "3.jpg", genre_id=4},
-                new Movie {Title = "Film 4", Description = "Açıklama 4", ImageUrl = "4.jpg", genre_id=3},
-                new Movie {Title = "Film 1", Description = "Açıklama 1", ImageUrl = "1.jpg", genre_id=3},
-                new Movie {Title = "Film 2", Description = "Açıklama 2", ImageUrl = "2.jpg", genre_id=1},
-                new Movie {Title = "Film 3", Description = "Açıklama 3", ImageUrl = "3.jpg", genre_id=3},
-                new Movie {Title = "Film 4", Description = "Açıklama 4", ImageUrl = "4.jpg", genre_id=1}
-
-            }
-
-                        );
+                    context.Movies.AddRange(movies);
                 }
                 if (context.Genres.Count() == 0)
                 {
-                    context.Genres.AddRange(new List<Genre>()
-            {
-                new Genre{Name="Macera"},
-                new Genre{Name="Komedi"},
-                new Genre{Name="Romantik"},
-                new Genre{Name="Savaş"},
-                new Genre{Name="Bilim Kurgu"}
-            }
-                        );
+                    context.Genres.AddRange(genres);
                 }
                 context.SaveChanges();
             }

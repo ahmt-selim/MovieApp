@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieApp.Web.Data;
 
 namespace MovieApp.Web.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    partial class MovieContextModelSnapshot : ModelSnapshot
+    [Migration("20241106201359_UpdateOneToMany")]
+    partial class UpdateOneToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,7 +79,7 @@ namespace MovieApp.Web.Migrations
                     b.Property<int?>("genre_id")
                         .HasColumnType("int");
 
-                    b.Property<int>("genre_id1")
+                    b.Property<int?>("genre_id1")
                         .HasColumnType("int");
 
                     b.HasKey("movie_id");
@@ -90,17 +92,10 @@ namespace MovieApp.Web.Migrations
             modelBuilder.Entity("MovieApp.Web.Entity.Movie", b =>
                 {
                     b.HasOne("MovieApp.Web.Entity.Genre", "Genre")
-                        .WithMany("Movies")
-                        .HasForeignKey("genre_id1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("genre_id1");
 
                     b.Navigation("Genre");
-                });
-
-            modelBuilder.Entity("MovieApp.Web.Entity.Genre", b =>
-                {
-                    b.Navigation("Movies");
                 });
 #pragma warning restore 612, 618
         }
