@@ -39,6 +39,18 @@ namespace MovieApp.Web.Data
                         new Movie {Title = "Film 4", Description = "Açıklama 4", ImageUrl = "4.jpg", Genre = genres[1]}
 
                     };
+            var users = new List<User>() { new User() { UserName="usera",Email="usera@gmail.com",Password="1234",ImageUrl="person1.jpg" },
+                new User { UserName="userb",Email="userb@gmail.com",Password="1234",ImageUrl="person2.jpg" },
+                new User { UserName="userc",Email="userc@gmail.com",Password="1234",ImageUrl="person3.jpg", 
+                    Person=new Person(){Name="Personel 1",Biography="tanıtım 1" } }, 
+            new User
+            {
+                UserName = "userd",
+                Email = "userd@gmail.com",
+                Password = "1234",
+                ImageUrl = "person4.jpg",
+                Person = new Person() { Name = "Personel 2", Biography = "tanıtım 2" }
+            } };
             if (context.Database.GetPendingMigrations().Count() == 0)//Bütün migrationlar uygulanmışsa yani bekleyen bir migration yoksa 
             {
                 if (context.Movies.Count() == 0)//Daha önceden ilgili movies tablosuna veri eklenmişse yeni test verilerini eklemiyor.
@@ -48,6 +60,10 @@ namespace MovieApp.Web.Data
                 if (context.Genres.Count() == 0)
                 {
                     context.Genres.AddRange(genres);
+                }
+                if (context.Users.Count() == 0)
+                {
+                    context.Users.AddRange(users);
                 }
                 context.SaveChanges();
             }
