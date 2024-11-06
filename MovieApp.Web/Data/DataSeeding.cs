@@ -24,14 +24,14 @@ namespace MovieApp.Web.Data
                 {
                     context.Movies.AddRange(new List<Movie>()
             {
-                new Movie { movie_id = 1,Title = "Film 1", Description = "Açıklama 1", ImageUrl = "1.jpg", genre_id=1},
-                new Movie { movie_id = 2,Title = "Film 2", Description = "Açıklama 2", ImageUrl = "2.jpg", genre_id=4},
-                new Movie { movie_id = 3,Title = "Film 3", Description = "Açıklama 3", ImageUrl = "3.jpg", genre_id=4},
-                new Movie { movie_id = 4,Title = "Film 4", Description = "Açıklama 4", ImageUrl = "4.jpg", genre_id=3},
-                new Movie { movie_id = 5,Title = "Film 1", Description = "Açıklama 1", ImageUrl = "1.jpg", genre_id=3},
-                new Movie { movie_id = 6,Title = "Film 2", Description = "Açıklama 2", ImageUrl = "2.jpg", genre_id=1},
-                new Movie { movie_id = 7,Title = "Film 3", Description = "Açıklama 3", ImageUrl = "3.jpg", genre_id=3},
-                new Movie { movie_id = 8,Title = "Film 4", Description = "Açıklama 4", ImageUrl = "4.jpg", genre_id=1}
+                new Movie {Title = "Film 1", Description = "Açıklama 1", ImageUrl = "1.jpg", genre_id=1},
+                new Movie {Title = "Film 2", Description = "Açıklama 2", ImageUrl = "2.jpg", genre_id=4},
+                new Movie {Title = "Film 3", Description = "Açıklama 3", ImageUrl = "3.jpg", genre_id=4},
+                new Movie {Title = "Film 4", Description = "Açıklama 4", ImageUrl = "4.jpg", genre_id=3},
+                new Movie {Title = "Film 1", Description = "Açıklama 1", ImageUrl = "1.jpg", genre_id=3},
+                new Movie {Title = "Film 2", Description = "Açıklama 2", ImageUrl = "2.jpg", genre_id=1},
+                new Movie {Title = "Film 3", Description = "Açıklama 3", ImageUrl = "3.jpg", genre_id=3},
+                new Movie {Title = "Film 4", Description = "Açıklama 4", ImageUrl = "4.jpg", genre_id=1}
 
             }
 
@@ -41,11 +41,11 @@ namespace MovieApp.Web.Data
                 {
                     context.Genres.AddRange(new List<Genre>()
             {
-                new Genre{genre_id = 1, Name="Macera"},
-                new Genre{genre_id = 2,Name="Komedi"},
-                new Genre{genre_id = 3,Name="Romantik"},
-                new Genre{genre_id = 4,Name="Savaş"},
-                 new Genre{genre_id = 5,Name="Bilim Kurgu"}
+                new Genre{Name="Macera"},
+                new Genre{Name="Komedi"},
+                new Genre{Name="Romantik"},
+                new Genre{Name="Savaş"},
+                new Genre{Name="Bilim Kurgu"}
             }
                         );
                 }
