@@ -8,9 +8,7 @@ namespace MovieApp.Web.Entity
 {
     public class Genre
     {
-        [Key]
         public int genre_id { get; set; }
-        [Required]
         public string Name { get; set; }
         public List<Movie> Movies { get; set; }
     }

@@ -9,3 +9,15 @@ dotnet ef database update RemoveDirectorProperty : veritabanını ilgli migratio
 dotnet ef migrations remove : son eklenen migrations'u projeden kaldırır.(Eğer bu uygulanmış migration ise hata verecektir.)
 
 NOT: Bu gibi veritabanı işlemlerini yapmadan önce projeyi derleyi hata olmadığından, doğru projenin seçili olduğundan ve komut satırının proje yolunun doğruluğundan emin olmamız gerekiyor.
+
+
+Bazı Kavramlar:
+1) Data Annotations: 
+	    [Required]
+        public string Title { get; set; }
+        [MaxLength(500)]
+        public string Description { get; set; }
+Şeklinde veri  tabanı oluşturuken yazdığımız propların üzerinde girilen parametrelere denir.
+
+2) Fluent Api:
+    DbContext sınıfı içinde ilgili modeli override edilerek yapılır.
