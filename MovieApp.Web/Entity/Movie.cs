@@ -17,7 +17,6 @@ namespace MovieApp.Web.Entity
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         [Required]
-        public Genre Genre { get; set; } //navigation property
-        public int? genre_id { get; set; }//null
+        public List<Genre> Genres { get; set; }
     }
 }

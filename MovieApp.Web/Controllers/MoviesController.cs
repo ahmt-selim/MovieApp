@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using MovieApp.Web.Data;
 using MovieApp.Web.Entity;
 using MovieApp.Web.Models;
@@ -39,7 +40,10 @@ namespace MovieApp.Web.Controllers
             var movies = _context.Movies.AsQueryable(); //AsQueryable _context üzerine ekstra sorgulae yükleyebieceğiz. Fitreleme işlemleri tamamlandıktan sonra En son ToList ile veri tabanına ilgili sorgu hazırlanıp gönderilir.
             if (id != null)
             {
-                movies = movies.Where(m => m.genre_id == id);
+                //Include ile moviesdeki tüm Genres bilgilerini çekip Any ile yukardan dönen genre id bilgisi ile eşleşen film var mı bulmak için bu şekilde bir yapı kullanıyoruz.
+                movies = movies
+                    .Include(m=> m.Genres)
+                    .Where(m => m.Genres.Any(g =>g.genre_id == id));
             }
             if (!string.IsNullOrEmpty(q))
             {

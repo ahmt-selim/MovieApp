@@ -22,16 +22,16 @@
         <input asp-for="ImageUrl" class="form-control" value="@Model.ImageUrl" />
         <span asp-validation-for="ImageUrl" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <!--<div class="form-group">
         <label asp-for="genre_id"></label>
         <select asp-for="genre_id" asp-items="@ViewBag.Genres" class="form-control">
-            <option selected disabled>Seçiniz</option>
+            <option selected disabled>Seçiniz</option>-->
             @*<option value="1">Macera</option>
             <option value="2">Komedi</option>
             <option value="3">Romantik</option>
             <option value="4">Savaş</option>*@
-        </select>
+        <!--</select>
         <span asp-validation-for="genre_id" class="text-danger"></span>
-    </div>
+    </div>-->
     <button typr="submit" class="btn btn-primary">Submit</button>
 </form>
