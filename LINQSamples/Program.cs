@@ -10,10 +10,11 @@ namespace LINQSamples
         {
             using (var db = new NorthwindContext())
             {
-                var products = db.Products.ToList();
+                //var products = db.Products.ToList();
+                var products = db.Products.Select(p => p.ProductName).ToList();
                 foreach (var p in products)
                 {
-                    Console.WriteLine(p.ProductName);
+                    Console.WriteLine(p);
                 }
             }
             Console.ReadLine();
