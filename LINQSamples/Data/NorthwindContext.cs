@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Logging;
 
 #nullable disable
 
@@ -16,6 +17,8 @@ namespace LINQSamples.Data
             : base(options)
         {
         }
+        public static readonly ILoggerFactory MyLoggerFactory
+            = LoggerFactory.Create(builder => { builder.AddConsole(); });
 
         public virtual DbSet<AlphabeticalListOfProduct> AlphabeticalListOfProducts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
@@ -51,7 +54,9 @@ namespace LINQSamples.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Database=Northwind; Integrated Security=SSPI;");
+                optionsBuilder
+                    .UseLoggerFactory(MyLoggerFactory)
+                    .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Database=Northwind; Integrated Security=SSPI;");
             }
         }
 

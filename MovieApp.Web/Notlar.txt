@@ -21,3 +21,7 @@ Bazı Kavramlar:
 
 2) Fluent Api:
     DbContext sınıfı içinde ilgili modeli override edilerek yapılır.
+
+
+
+Not:appsettings.json a eklediğimiz "Microsoft.EntityFrameworkCore.Database.Command": "Information" satırı ile projeden veritabanına atılan linq sorgularını konsolda (output) gördük.
