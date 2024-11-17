@@ -1,5 +1,6 @@
 ﻿using LINQSamples.Data;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LINQSamples
@@ -13,9 +14,30 @@ namespace LINQSamples
     {
         static void Main(string[] args)
         {
+            //using (var db = new NorthwindContext())
+            //{
+            //    var p1 = new Product() { ProductName = "Yeni Ürün 1" };
+            //    db.Products.Add(p1);
+            //    db.SaveChanges();
+            //    Console.WriteLine("veri eklendi.");
+            //    Console.WriteLine(p1.ProductId);
+
+            //}
             using (var db = new NorthwindContext())
             {
-                Ders2(db);
+                var category = db.Categories.Where(c => c.CategoryName == "Produce").FirstOrDefault();
+
+                var p1 = new Product() { ProductName = "Yeni Ürün 9", Category=category };
+                var p2 = new Product() { ProductName = "Yeni Ürün 10", Category = category };
+                //var products = new List<Product>() { p1, p2 };
+                //db.Products.AddRange(products); //AddRange ile liste halinde ekleme yapılabilir.
+                category.Products.Add(p1);
+                category.Products.Add(p2);//Category entities'i içinde Product ICollection ı bulunduğu için bu şekilde kategori üzerinden ürün eklemesi de yapılabilir.
+                
+                db.SaveChanges();
+                Console.WriteLine("veriler eklendi.");
+                Console.WriteLine(p1.ProductId);
+                Console.WriteLine(p2.ProductId);
 
             }
             Console.ReadLine();
