@@ -17,6 +17,34 @@ namespace LINQSamples
         {
             using (var db = new NorthwindContext())
             {
+                //Yöntem1
+                //var p = db.Products.Find(84);
+                //if (p != null)
+                //{
+                //    db.Products.Remove(p);
+                //    db.SaveChanges();
+                //    Console.WriteLine("Veri silindi.");
+                //}
+                //Yöntem2
+                //var p = new Product() { ProductId = 87 };
+                //db.Entry(p).State = EntityState.Deleted;//İlgli kayıtla ilgili change tracking işlemi başlatır. EntityState ile silme işlemi sağlanır.
+                //db.SaveChanges();
+                //Console.WriteLine("Veri silindi.");
+
+                //Toplu silme
+                var p1 = new Product() { ProductId = 82 };
+                var p2 = new Product() { ProductId = 83 };
+                var products = new List<Product>() { p1, p2 };
+                db.Products.RemoveRange(products);
+                db.SaveChanges();
+            }
+            Console.ReadLine();
+        }
+
+        private static void Ders7()
+        {
+            using (var db = new NorthwindContext())
+            {
                 var product = db.Products.Find(1);// id si 1 olan ürünün bulur ama henüz getirmez.
                 //Bu şekilde de select sorgusu atmadan veri güncelleyebiliriz.
                 Console.WriteLine(product.ProductName);
@@ -28,7 +56,6 @@ namespace LINQSamples
                     db.SaveChanges();
                 }
             }
-            Console.ReadLine();
         }
 
         private static void Ders6()
@@ -37,7 +64,7 @@ namespace LINQSamples
             {
                 //Bir select işlemi yapmadan sadece update sorgusu ile veri güncellenmek istendiğinde Attach metodu kullanılır.
                 var p = new Product() { ProductId = 1 };
-                db.Products.Attach(p);
+                db.Products.Attach(p);//İlgili tablodayla ilgili bir change tracking işlemi başlatır.
                 p.UnitsInStock += 10;
                 db.SaveChanges();
             }
