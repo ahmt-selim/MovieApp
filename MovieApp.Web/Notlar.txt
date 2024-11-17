@@ -22,6 +22,8 @@ Bazı Kavramlar:
 2) Fluent Api:
     DbContext sınıfı içinde ilgili modeli override edilerek yapılır.
 
-
+3)Navigation Property:
+    Navigation Property'nin Amacı
+    Navigation property'ler, veritabanındaki ilişkisel verilerin .NET Core uygulamanızda nesne referansları üzerinden kolayca erişilmesini sağlar. Örneğin, Customer ve Order adında iki varlığınız olduğunu düşünelim; bir müşteri birden fazla siparişe sahip olabilir. Bu durumda, Customer sınıfında Orders adında bir navigation property, Order sınıfında ise Customer adında bir navigation property olabilir. Bu sayede, bir müşterinin tüm siparişlerini veya bir siparişin ait olduğu müşteriyi kolayca çekebilirsiniz.
 
 Not:appsettings.json a eklediğimiz "Microsoft.EntityFrameworkCore.Database.Command": "Information" satırı ile projeden veritabanına atılan linq sorgularını konsolda (output) gördük.

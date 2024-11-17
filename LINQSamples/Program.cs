@@ -1,4 +1,5 @@
 ﻿using LINQSamples.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,55 @@ namespace LINQSamples
         {
             using (var db = new NorthwindContext())
             {
+                var product = db.Products.Find(1);// id si 1 olan ürünün bulur ama henüz getirmez.
+                //Bu şekilde de select sorgusu atmadan veri güncelleyebiliriz.
+                Console.WriteLine(product.ProductName);
+                if (product != null)
+                {
+                    product.UnitPrice = 28;
+
+                    db.Update(product);//ilgili tablodaki bütün kolonlara güncelleme sorgusu atılır.
+                    db.SaveChanges();
+                }
+            }
+            Console.ReadLine();
+        }
+
+        private static void Ders6()
+        {
+            using (var db = new NorthwindContext())
+            {
+                //Bir select işlemi yapmadan sadece update sorgusu ile veri güncellenmek istendiğinde Attach metodu kullanılır.
+                var p = new Product() { ProductId = 1 };
+                db.Products.Attach(p);
+                p.UnitsInStock += 10;
+                db.SaveChanges();
+            }
+        }
+
+        private static void Ders5()
+        {
+            using (var db = new NorthwindContext())
+            {
+                //change tracking: Bir veri contextten çağırıldığında arkada ilgili getirilen tabloda yapılan değişiklikleri tutan rapordur.
+                //Eğer getirilen veri sadece kullanıcıya gösterilecekse kaıt güncellemsei yapılmayacakta .AsNoTracking ile bu rapor tutulmaz.
+                var product = db.Products
+                    //.AsNoTracking()
+                    .FirstOrDefault(p => p.ProductId == 1);
+                if (product != null)
+                {
+                    product.UnitsInStock += 10;//Sadece ilgili kolon üçün update sorgusu yazılır.
+                    db.SaveChanges();
+                    Console.WriteLine("Veri güncellendi.");
+                }
+
+            }
+        }
+
+        private static void Ders4()
+        {
+            using (var db = new NorthwindContext())
+            {
                 var result = db.Products.Count();
                 var result1 = db.Products.Count(i => i.UnitPrice > 10 && i.UnitPrice < 30);
                 var result2 = db.Products.Count(i => i.Discontinued);
@@ -25,8 +75,8 @@ namespace LINQSamples
                 var result6 = db.Products.Average(p => p.UnitPrice);//unitprice ların ortalaması
                 var result7 = db.Products.Sum(p => p.UnitsInStock);//unitinstock kolonunu toplar
 
-                var res = db.Products.OrderBy(p=>p.UnitPrice).ToList();//OrderBy sıralama işlemi yapar. Varsayılan olarak artan sıralama yani küçükten büyüğe sıralar.
-                
+                var res = db.Products.OrderBy(p => p.UnitPrice).ToList();//OrderBy sıralama işlemi yapar. Varsayılan olarak artan sıralama yani küçükten büyüğe sıralar.
+
                 foreach (var item in res)
                 {
                     Console.WriteLine(item.ProductName + " " + item.UnitPrice);
@@ -48,7 +98,6 @@ namespace LINQSamples
                     Console.WriteLine(item.ProductName + " " + item.UnitPrice);
                 }
             }
-            Console.ReadLine();
         }
 
         private static void Ders3()
