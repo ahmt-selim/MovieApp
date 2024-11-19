@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace LINQSamples
 {
-    class ProductModel
+    public class ProductModel
     {
         public int ProductId { get; set; }
         public string Name { get; set; }
@@ -33,7 +33,28 @@ namespace LINQSamples
     {
         static void Main(string[] args)
         {
-            
+            using (var db =new CustomNorthwindContext())
+            {
+                //Kendi yazdığımız sql sorgusu ile veritabanı işlemleri:
+
+                //var sonuc = db.Database.ExecuteSqlRaw("delete from products where productId=81");
+                //var sonuc1 = db.Database.ExecuteSqlRaw("update products set unitprice=unitprice*1.2 where categoryId=4");
+                //Console.WriteLine(sonuc);
+
+                //Bu şekilde NorthwindContext i kullanarak sorgu yazmak istediğimizde istediğimiz kolonları getiremiyoruz. * ile tüm kolonlar geliyor. Ama aşağıda CustomNorthwindContext classı ile kendi yazdığımız contexti kullanarak ProductModel classında bulunan değerleri dbden çağırabiliriz.
+                //var products = db.Products.FromSqlRaw("select * from products where categoryId=4").ToList();
+                //foreach (var item in products)
+                //{
+                //    Console.WriteLine(item.ProductName);
+                //}
+
+                var products = db.ProductModels.FromSqlRaw("select ProductId, ProductName as Name, UnitPrice as Price from Products").ToList();//Ya bu şekilde as ile kolon isimlerini ilgili classdaki propertler ile eşleştiririz ya da CustomNorthwindContexte fluent api ile kolonlara property ekleriz.
+
+                foreach (var item in products)
+                {
+                    Console.WriteLine(item.Name);
+                }
+            }
             Console.ReadLine();
         }
 
