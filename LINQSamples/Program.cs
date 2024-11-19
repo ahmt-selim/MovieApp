@@ -17,6 +17,60 @@ namespace LINQSamples
         {
             using (var db = new NorthwindContext())
             {
+                //Birden fazla tablodan veri çekmek istediğimizde:
+                //var products = db.Products.Include(p => p.Category).Where(p => p.Category.CategoryName == "Beverages").ToList();
+
+                //foreach (var item in products)
+                //{
+                //    Console.WriteLine(item.ProductName + " " + item.CategoryId + " " + item.Category.CategoryName);//Burada CategoryName alanı Include ile eklediğimiz Category tablosundan geliyor.
+                //}
+
+                //2. Yöntem:
+                //var products = db.Products
+                //    .Where(p => p.Category.CategoryName == "Beverages")
+                //    .Select(p => new
+                //    {
+                //        name = p.ProductName,
+                //        id = p.ProductId,
+                //        categoryname = p.Category.CategoryName
+                //    }).ToList();
+                //foreach (var item in products)
+                //{
+                //    Console.WriteLine(item.name + " " + item.id + " " + item.categoryname);
+                //}
+                ////---
+                ////var categories = db.Categories.Where(c => c.Products.Count() == 0).ToList();//Hiçbir üründe olmayan kategorileri getirir.
+                //var categories = db.Categories.Where(c => c.Products.Any()).ToList();//Any en az bir kayıt olanları döner.
+                //foreach (var item in categories)
+                //{
+                //    Console.WriteLine(item.CategoryName);
+                //}
+
+                //extension methods= Şimdiya kadar sql sorgusu üretmek için kullanılan metot. Bu metotta iki tablo left join ile birleştirilir. inner join kullanmak için aşağıdaki yöntem kullanılır.
+                //query exoressions:
+
+                //var products = (from p in db.Products
+                //                where p.UnitPrice>10
+                //                select p).ToList();
+
+                var products = (from p in db.Products
+                                join s in db.Suppliers on p.SupplierId equals s.SupplierId
+                                select new
+                                {
+                                    p.ProductName,
+                                    contactName = s.ContactName,
+                                    companyName = s.ContactName
+                                }).ToList();
+
+
+            }
+            Console.ReadLine();
+        }
+
+        private static void Ders8()
+        {
+            using (var db = new NorthwindContext())
+            {
                 //Yöntem1
                 //var p = db.Products.Find(84);
                 //if (p != null)
@@ -38,7 +92,6 @@ namespace LINQSamples
                 db.Products.RemoveRange(products);
                 db.SaveChanges();
             }
-            Console.ReadLine();
         }
 
         private static void Ders7()
