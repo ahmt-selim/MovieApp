@@ -8,12 +8,79 @@ namespace LINQSamples
 {
     class ProductModel
     {
+        public int ProductId { get; set; }
         public string Name { get; set; }
         public decimal? Price { get; set; }
+    }
+    class CustomerModel
+    {
+        public CustomerModel()
+        {
+            this.Orders = new List<OrderModel>();
+        }
+        public string CustomerId { get; set; }
+        public string CustomerName { get; set; }
+        public int OrderCount { get; set; }
+        public List<OrderModel> Orders { get; set; }
+    }
+    class OrderModel
+    {
+        public int OrderId { get; set; }
+        public decimal Total { get; set; }
+        public List<ProductModel> Products { get; set; }
     }
     class Program
     {
         static void Main(string[] args)
+        {
+            
+            Console.ReadLine();
+        }
+
+        private static void Ders10()
+        {
+            using (var db = new NorthwindContext())
+            {
+                //Sipariş veren müşteriler ve verdiği sipariş detayları:
+                var customers = db.Customers
+                    .Where(cus => cus.Orders.Any())
+                    .Select(cus => new CustomerModel
+                    {
+                        CustomerId = cus.CustomerId,
+                        CustomerName = cus.ContactName,
+                        OrderCount = cus.Orders.Count,
+                        Orders = cus.Orders.Select(order => new OrderModel
+                        {
+                            OrderId = order.OrderId,
+                            Total = order.OrderDetails.Sum(od => od.Quantity * od.UnitPrice),
+                            Products = order.OrderDetails.Select(od => new ProductModel
+                            {
+                                ProductId = od.Product.ProductId,
+                                Name = od.Product.ProductName,
+                                Price = od.UnitPrice
+                            }).ToList()
+                        }).ToList()
+                    })
+                    .OrderBy(i => i.OrderCount).ToList();
+                foreach (var customer in customers)
+                {
+                    Console.WriteLine(customer.CustomerName + "=>" + customer.OrderCount);
+                    Console.WriteLine("Siparişler");
+                    foreach (var order in customer.Orders)
+                    {
+                        Console.WriteLine("************************");
+                        Console.WriteLine(order.OrderId + "=>" + order.Total);
+                        foreach (var product in order.Products)
+                        {
+                            Console.WriteLine(product.ProductId + "=>" + product.Name + "=>" + product.Price);
+                        }
+                    }
+                }
+
+            }
+        }
+
+        private static void Ders9()
         {
             using (var db = new NorthwindContext())
             {
@@ -64,7 +131,6 @@ namespace LINQSamples
 
 
             }
-            Console.ReadLine();
         }
 
         private static void Ders8()
