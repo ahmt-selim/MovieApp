@@ -1,27 +1,45 @@
 ﻿@model AdminEditMovieViewModel
 
 <h1>Edit Movie</h1>
-
 <hr />
-<form method="post" asp-controller="Admin" asp-action="MovieUpdate">
-    <input type="hidden" name="MovieId" value="@Model.MovieId" /> @*Güncelleme için controllera gönderdiğimiz Movie nesnesinin id değerini burada sakladık.*@
-    <div class="form-group">
-        @*<label for="Title">Title</label>*@ @*TagHelper kütüphanesi ile aşağıdaki gibi yazabildik.*@
-        @*<input type="text" name="Title" class="form-control" />*@
-        <label asp-for="Title"></label>
-        <input asp-for="Title" class="form-control" value="@Model.Title" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+
+<div class="row">
+    <div class="col-md-8">
+        <form method="post" asp-controller="Admin" asp-action="MovieUpdate">
+            <input type="hidden" name="MovieId" value="@Model.MovieId" /> @*Güncelleme için controllera gönderdiğimiz Movie nesnesinin id değerini burada sakladık.*@
+            <div class="form-group">
+                @*<label for="Title">Title</label>*@ @*TagHelper kütüphanesi ile aşağıdaki gibi yazabildik.*@
+                @*<input type="text" name="Title" class="form-control" />*@
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" value="@Model.Title" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control">@Model.Description</textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control" value="@Model.ImageUrl" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <button typr="submit" class="btn btn-primary">Submit</button>
+        </form>
+
     </div>
-    <div class="form-group">
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description" class="form-control">@Model.Description</textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
+    <div class="col-md-4">
+
+        @foreach (var item in (List<Genre>)ViewBag.Genres)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="genre_@item.genre_id" @(Model.SelectedGenres.Any(i=>i.genre_id==item.genre_id)?"checked":"")>
+                <label class="form-check-label" for="genre_@item.genre_id">
+                    @item.Name
+                </label>
+            </div>
+        }
+
     </div>
-    <div class="form-group">
-        <label asp-for="ImageUrl"></label>
-        <input asp-for="ImageUrl" class="form-control" value="@Model.ImageUrl" />
-        <span asp-validation-for="ImageUrl" class="text-danger"></span>
-    </div>
-    <button typr="submit" class="btn btn-primary">Submit</button>
-</form>
+</div>
 
