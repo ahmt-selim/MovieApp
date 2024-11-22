@@ -20,7 +20,7 @@ namespace MovieApp.Web.Controllers
         {
             return View();
         }
-        public IActionResult Movielist()
+        public IActionResult MovieList()
         {
             return View(new AdminMoviesViewModel 
             {
@@ -34,6 +34,41 @@ namespace MovieApp.Web.Controllers
                 })
                 .ToList()
             });
+        }
+        public IActionResult MovieUpdate(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var entity = _context.Movies.Select(m => new AdminEditMovieViewModel
+            {
+                MovieId = m.movie_id,
+                Title = m.Title,
+                Description = m.Description,
+                ImageUrl = m.ImageUrl
+            }).FirstOrDefault(m=>m.MovieId==id);
+
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            return View(entity);
+        }
+        [HttpPost]
+        public IActionResult MovieUpdate(AdminEditMovieViewModel model)
+        {
+            var entity = _context.Movies.Find(model.MovieId);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+
+            entity.Title = model.Title;
+            entity.Description = model.Description;
+            entity.ImageUrl = model.ImageUrl;
+            _context.SaveChanges();
+            return RedirectToAction("MovieList");
         }
     }
 }

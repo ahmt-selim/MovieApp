@@ -1,0 +1,27 @@
+﻿@model AdminEditMovieViewModel
+
+<h1>Edit Movie</h1>
+
+<hr />
+<form method="post" asp-controller="Admin" asp-action="MovieUpdate">
+    <input type="hidden" name="MovieId" value="@Model.MovieId" /> @*Güncelleme için controllera gönderdiğimiz Movie nesnesinin id değerini burada sakladık.*@
+    <div class="form-group">
+        @*<label for="Title">Title</label>*@ @*TagHelper kütüphanesi ile aşağıdaki gibi yazabildik.*@
+        @*<input type="text" name="Title" class="form-control" />*@
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" value="@Model.Title" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control">@Model.Description</textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageUrl"></label>
+        <input asp-for="ImageUrl" class="form-control" value="@Model.ImageUrl" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+    <button typr="submit" class="btn btn-primary">Submit</button>
+</form>
+
