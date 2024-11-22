@@ -33,7 +33,13 @@ namespace LINQSamples
     {
         static void Main(string[] args)
         {
-            using (var db =new CustomNorthwindContext())
+            
+            Console.ReadLine();
+        }
+
+        private static void Ders11()
+        {
+            using (var db = new CustomNorthwindContext())
             {
                 //Kendi yazdığımız sql sorgusu ile veritabanı işlemleri:
 
@@ -55,7 +61,7 @@ namespace LINQSamples
                     Console.WriteLine(item.Name);
                 }
             }
-            Console.ReadLine();
+            
         }
 
         private static void Ders10()
