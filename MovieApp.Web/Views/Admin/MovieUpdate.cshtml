@@ -30,10 +30,10 @@
             @foreach (var item in (List<Genre>)ViewBag.Genres)
             {
                 <div class="form-check">
-                    <input class="form-check-input" 
-                           name="genreIds" 
-                           value="@item.genre_id" 
-                           type="checkbox" 
+                    <input class="form-check-input"
+                           name="genreIds"
+                           value="@item.genre_id"
+                           type="checkbox"
                            id="genre_@item.genre_id" @(Model.SelectedGenres.Any(i => i.genre_id == item.genre_id) ? "checked" : "")>
                     <label class="form-check-label" for="genre_@item.genre_id">
                         @item.Name
@@ -45,4 +45,12 @@
     </div>
 
 </form>
+
+@section scripts
+{
+    <script src="https://cdn.ckeditor.com/4.25.0-lts/basic/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('Description');
+    </script>
+}
 

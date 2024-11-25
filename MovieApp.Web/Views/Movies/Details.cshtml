@@ -9,7 +9,7 @@
         <div class="col-md-3">
             <div class="card-body">
                 <h5 class="card-tittle">@Model.Title</h5>
-                <p class="card-text">@Model.Description</p>
+                <p class="card-text">@Html.Raw(Model.Description)</p>
                 @*@if (Model.Cast != null)
                 {
                     <p>
