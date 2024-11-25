@@ -114,5 +114,25 @@ namespace MovieApp.Web.Controllers
             }
             return View(entity);
         }
+        [HttpPost]
+        public IActionResult GenreUpdate(AdminGenreEditViewModel model, int[] movieIds)
+        {
+            var entity = _context.Genres.Include("Movies").FirstOrDefault(i => i.genre_id == model.GenreId);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+
+            entity.Name = model.Name;
+            foreach (var id in movieIds)
+            {
+                entity.Movies.Remove(entity.Movies.FirstOrDefault(m => m.movie_id == id));
+            }
+            _context.SaveChanges();
+            return RedirectToAction("GenreList");
+
+
+
+        }
     }
 }
