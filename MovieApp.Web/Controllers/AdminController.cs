@@ -74,5 +74,18 @@ namespace MovieApp.Web.Controllers
             _context.SaveChanges();
             return RedirectToAction("MovieList");
         }
+        public IActionResult Genrelist()
+        {
+
+            return View(new AdminGenresViewModel
+            {
+                Genres = _context.Genres.Select(g => new AdminGenreViewModel
+                {
+                    GenreId = g.genre_id,
+                    Name = g.Name,
+                    Count = g.Movies.Count
+                }).ToList()
+            });
+        }
     }
 }
