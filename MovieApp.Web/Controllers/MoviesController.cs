@@ -65,73 +65,73 @@ namespace MovieApp.Web.Controllers
             //return View(MovieRepository.GetById(id)); //Db kullanmadan önceki yöntem
             return View(_context.Movies.Find(id));
         }
-        [HttpGet]
-        public IActionResult Create()
-        {
-            //ViewBag.Genres = new SelectList(GenreRepository.Genres, "genre_id", "Name"); //Db kullanmadan önceki yöntem
-            ViewBag.Genres = new SelectList(_context.Genres.ToList(), "genre_id", "Name");
-            return View();
-        }
-        [HttpPost]
-        //public IActionResult Create(string Title, string Description, string Director, string ImageUrl, int genre_id) //Alternatif olarak bu şekilde de kullanılabilir.
-        public IActionResult Create(Movie m)
-        {
-            //Model Binding
+        //[HttpGet]
+        //public IActionResult Create()
+        //{
+        //    //ViewBag.Genres = new SelectList(GenreRepository.Genres, "genre_id", "Name"); //Db kullanmadan önceki yöntem
+        //    ViewBag.Genres = new SelectList(_context.Genres.ToList(), "genre_id", "Name");
+        //    return View();
+        //}
+        //[HttpPost]
+        ////public IActionResult Create(string Title, string Description, string Director, string ImageUrl, int genre_id) //Alternatif olarak bu şekilde de kullanılabilir.
+        //public IActionResult Create(Movie m)
+        //{
+        //    //Model Binding
 
-            //var m = new Movie()
-            //{
-            //    Title = Title,
-            //    Description = Description,
-            //    Director = Director,
-            //    ImageUrl = ImageUrl,
-            //    genre_id = genre_id
-            //};
+        //    //var m = new Movie()
+        //    //{
+        //    //    Title = Title,
+        //    //    Description = Description,
+        //    //    Director = Director,
+        //    //    ImageUrl = ImageUrl,
+        //    //    genre_id = genre_id
+        //    //};
 
-            if (ModelState.IsValid)
-            {
-                //MovieRepository.Add(m);//Db kullanmadan önceki yöntem
-                //return RedirectToAction("Index", "Home"); //Bu şekilde 2. bir parametre tanımalandığı zaman Home controllerı altındaki index metoduna yönlendirilecektir.
-                _context.Movies.Add(m);
-                _context.SaveChanges();
+        //    if (ModelState.IsValid)
+        //    {
+        //        //MovieRepository.Add(m);//Db kullanmadan önceki yöntem
+        //        //return RedirectToAction("Index", "Home"); //Bu şekilde 2. bir parametre tanımalandığı zaman Home controllerı altındaki index metoduna yönlendirilecektir.
+        //        _context.Movies.Add(m);
+        //        _context.SaveChanges();
 
-                TempData["Message"] = $"{m.Title} isimli film eklendi.";
-                return RedirectToAction("List");
-            }
-            ViewBag.Genres = new SelectList(_context.Genres.ToList(), "genre_id", "Name");
-            return View();
+        //        TempData["Message"] = $"{m.Title} isimli film eklendi.";
+        //        return RedirectToAction("List");
+        //    }
+        //    ViewBag.Genres = new SelectList(_context.Genres.ToList(), "genre_id", "Name");
+        //    return View();
             
-        }
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            ViewBag.Genres = new SelectList(_context.Genres.ToList(), "genre_id", "Name");
-            return View(_context.Movies.Find(id));
-        }
-        [HttpPost]
-        public IActionResult Edit(Movie m)
-        {
-            if (ModelState.IsValid)
-            {
-                //MovieRepository.Edit(m);
-                _context.Movies.Update(m);
-                _context.SaveChanges();
-                TempData["Message"] = $"{m.Title} isimli film güncelendi.";
-                //return RedirectToAction("Index", "Home"); //Bu şekilde 2. bir parametre tanımalandığı zaman Home controllerı altındaki index metoduna yönlendirilecektir.
-                return RedirectToAction("List");
-            }
-            ViewBag.Genres = new SelectList(_context.Genres.ToList(), "genre_id", "Name");
-            // /movies/details/1
-            return View(m);
-        }
-        [HttpPost]
-        public IActionResult Delete(int movie_id, string Title)
-        {
-            //MovieRepository.Delete(movie_id);
-            var entity = _context.Movies.Find(movie_id);
-            _context.Movies.Remove(entity);
-            _context.SaveChanges();
-            TempData["Message"] = $"{Title} isimli film silindi.";//Burada delete işlmeinden sonra sayfa yönlendirmesi yaptığımız için ViewBag içindeki veri siliniyor. Bu yüzden TempData metodu ile veri taşıması yaptık
-            return RedirectToAction("List");
-        }
+        //}
+        //[HttpGet]
+        //public IActionResult Edit(int id)
+        //{
+        //    ViewBag.Genres = new SelectList(_context.Genres.ToList(), "genre_id", "Name");
+        //    return View(_context.Movies.Find(id));
+        //}
+        //[HttpPost]
+        //public IActionResult Edit(Movie m)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        //MovieRepository.Edit(m);
+        //        _context.Movies.Update(m);
+        //        _context.SaveChanges();
+        //        TempData["Message"] = $"{m.Title} isimli film güncelendi.";
+        //        //return RedirectToAction("Index", "Home"); //Bu şekilde 2. bir parametre tanımalandığı zaman Home controllerı altındaki index metoduna yönlendirilecektir.
+        //        return RedirectToAction("List");
+        //    }
+        //    ViewBag.Genres = new SelectList(_context.Genres.ToList(), "genre_id", "Name");
+        //    // /movies/details/1
+        //    return View(m);
+        //}
+        //[HttpPost]
+        //public IActionResult Delete(int movie_id, string Title)
+        //{
+        //    //MovieRepository.Delete(movie_id);
+        //    var entity = _context.Movies.Find(movie_id);
+        //    _context.Movies.Remove(entity);
+        //    _context.SaveChanges();
+        //    TempData["Message"] = $"{Title} isimli film silindi.";//Burada delete işlmeinden sonra sayfa yönlendirmesi yaptığımız için ViewBag içindeki veri siliniyor. Bu yüzden TempData metodu ile veri taşıması yaptık
+        //    return RedirectToAction("List");
+        //}
     }
 }

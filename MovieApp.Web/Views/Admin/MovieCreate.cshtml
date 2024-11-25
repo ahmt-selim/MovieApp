@@ -1,26 +1,25 @@
 ﻿@model AdminEditMovieViewModel
 
-<h1>Edit Movie</h1>
+<h1>Create Movie</h1>
 <hr />
-<form method="post" asp-controller="Admin" asp-action="MovieUpdate">
+<form method="post" asp-controller="Admin" asp-action="MovieCreate">
     <div class="row">
         <div class="col-md-8">
-            <input type="hidden" name="MovieId" value="@Model.MovieId" /> @*Güncelleme için controllera gönderdiğimiz Movie nesnesinin id değerini burada sakladık.*@
             <div class="mb-3">
                 @*<label for="Title">Title</label>*@ @*TagHelper kütüphanesi ile aşağıdaki gibi yazabildik.*@
                 @*<input type="text" name="Title" class="form-control" />*@
                 <label asp-for="Title"></label>
-                <input asp-for="Title" class="form-control" value="@Model.Title" />
+                <input asp-for="Title" class="form-control"  />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Description"></label>
-                <textarea asp-for="Description" class="form-control">@Model.Description</textarea>
+                <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="ImageUrl"></label>
-                <input asp-for="ImageUrl" class="form-control" value="@Model.ImageUrl" />
+                <input asp-for="ImageUrl" class="form-control" />
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
             <button typr="submit" class="btn btn-primary">Submit</button>
@@ -30,11 +29,11 @@
             @foreach (var item in (List<Genre>)ViewBag.Genres)
             {
                 <div class="form-check">
-                    <input class="form-check-input" 
-                           name="genreIds" 
-                           value="@item.genre_id" 
-                           type="checkbox" 
-                           id="genre_@item.genre_id" @(Model.SelectedGenres.Any(i => i.genre_id == item.genre_id) ? "checked" : "")>
+                    <input class="form-check-input"
+                           name="genreIds"
+                           value="@item.genre_id"
+                           type="checkbox"
+                           id="genre_@item.genre_id" >
                     <label class="form-check-label" for="genre_@item.genre_id">
                         @item.Name
                     </label>
