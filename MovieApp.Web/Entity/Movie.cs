@@ -8,6 +8,10 @@ namespace MovieApp.Web.Entity
 {
     public class Movie
     {
+        public Movie()
+        {
+            Genres = new List<Genre>();
+        }
         //Primary Key => Id, <TypeName>Id
         public int movie_id { get; set; }
         public string Title { get; set; }

@@ -1,10 +1,11 @@
-﻿@model AdminEditMovieViewModel
+﻿@model AdminCreateMovieModel
 
 <h1>Create Movie</h1>
 <hr />
 <form method="post" asp-controller="Admin" asp-action="MovieCreate">
     <div class="row">
         <div class="col-md-8">
+            <div asp-validation-summary="All"></div>
             <div class="mb-3">
                 @*<label for="Title">Title</label>*@ @*TagHelper kütüphanesi ile aşağıdaki gibi yazabildik.*@
                 @*<input type="text" name="Title" class="form-control" />*@
@@ -16,11 +17,6 @@
                 <label asp-for="Description"></label>
                 <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="ImageUrl"></label>
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
             <button typr="submit" class="btn btn-primary">Submit</button>
         </div>
