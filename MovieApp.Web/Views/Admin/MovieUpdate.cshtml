@@ -34,7 +34,8 @@
                            name="genreIds"
                            value="@item.genre_id"
                            type="checkbox"
-                           id="genre_@item.genre_id" @(Model.SelectedGenres.Any(i => i.genre_id == item.genre_id) ? "checked" : "")>
+                           id="genre_@item.genre_id" 
+                           @(Model.SelectedGenres.Any(i => i.genre_id == item.genre_id) ? "checked" : "")>
                     <label class="form-check-label" for="genre_@item.genre_id">
                         @item.Name
                     </label>

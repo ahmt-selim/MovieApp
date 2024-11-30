@@ -158,11 +158,19 @@ namespace MovieApp.Web.Controllers
         public IActionResult MovieCreate()
         {
             ViewBag.Genres = _context.Genres.ToList();
-            return View();
+            return View(new AdminCreateMovieModel());
         }
         [HttpPost]
-        public IActionResult MovieCreate(AdminCreateMovieModel model, int[] genreIds)
+        public IActionResult MovieCreate(AdminCreateMovieModel model)
         {
+            if (model.Title != null && model.Title.Contains("@"))
+            {
+                ModelState.AddModelError("", "Film başlığı @ işareti içeremez");//Koddan validation kontrolü ekleme işlemi. AddModelError ile yazdığımız hata mesajını ilgili viewe aktarabiliyoruz. ilk parametreyi boş bırakmayıp viewden bir model ismi girmdiğimizde o model altında hata mesajı yazdırılıyor.
+            }
+            if (model.GenreIds == null)
+            {
+                ModelState.AddModelError("GenreIds", "En az bir tür seçmelisiniz.");
+            }
             if (ModelState.IsValid)
             {
                 var entity = new Movie
@@ -171,7 +179,7 @@ namespace MovieApp.Web.Controllers
                     Description = model.Description,
                     ImageUrl = "no-image.png"
                 };
-                foreach (var id in genreIds)
+                foreach (var id in model.GenreIds)
                 {
                     entity.Genres.Add(_context.Genres.FirstOrDefault(i => i.genre_id == id));
                 }
@@ -180,7 +188,7 @@ namespace MovieApp.Web.Controllers
                 return RedirectToAction("MovieList", "Admin");
             }
             ViewBag.Genres = _context.Genres.ToList();
-            return View();
+            return View(model);
         }
     }
 }
