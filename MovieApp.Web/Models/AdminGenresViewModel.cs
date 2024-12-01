@@ -1,6 +1,7 @@
 ﻿using MovieApp.Web.Entity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,6 +9,8 @@ namespace MovieApp.Web.Models
 {
     public class AdminGenresViewModel
     {
+        [Required(ErrorMessage ="Tür bilgisi girmlisiniz.")]
+        public string Name { get; set; }
         public List<AdminGenreViewModel> Genres { get; set; }
     }
 
@@ -21,6 +24,7 @@ namespace MovieApp.Web.Models
     public class AdminGenreEditViewModel
     {
         public int GenreId { get; set; }
+        [Required(ErrorMessage = "Tür bilgisi girmlisiniz.")]
         public string Name { get; set; }
         public List<AdminMovieViewModel> Movies { get; set; }
     }

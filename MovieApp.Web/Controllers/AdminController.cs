@@ -95,8 +95,11 @@ namespace MovieApp.Web.Controllers
         }
         public IActionResult Genrelist()
         {
-
-            return View(new AdminGenresViewModel
+            return View(GetGenres());
+        }
+        private AdminGenresViewModel GetGenres()
+        {
+            return new AdminGenresViewModel
             {
                 Genres = _context.Genres.Select(g => new AdminGenreViewModel
                 {
@@ -104,7 +107,7 @@ namespace MovieApp.Web.Controllers
                     Name = g.Name,
                     Count = g.Movies.Count
                 }).ToList()
-            });
+            };
         }
         public IActionResult GenreUpdate(int? id)
         {
@@ -136,19 +139,23 @@ namespace MovieApp.Web.Controllers
         [HttpPost]
         public IActionResult GenreUpdate(AdminGenreEditViewModel model, int[] movieIds)
         {
-            var entity = _context.Genres.Include("Movies").FirstOrDefault(i => i.genre_id == model.GenreId);
-            if (entity == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
-            }
+                var entity = _context.Genres.Include("Movies").FirstOrDefault(i => i.genre_id == model.GenreId);
+                if (entity == null)
+                {
+                    return NotFound();
+                }
 
-            entity.Name = model.Name;
-            foreach (var id in movieIds)
-            {
-                entity.Movies.Remove(entity.Movies.FirstOrDefault(m => m.movie_id == id));
+                entity.Name = model.Name;
+                foreach (var id in movieIds)
+                {
+                    entity.Movies.Remove(entity.Movies.FirstOrDefault(m => m.movie_id == id));
+                }
+                _context.SaveChanges();
+                return RedirectToAction("GenreList");
             }
-            _context.SaveChanges();
-            return RedirectToAction("GenreList");
+            return View(model);
         }
         [HttpPost]
         public IActionResult GenreDelete(int genreId)
@@ -161,6 +168,22 @@ namespace MovieApp.Web.Controllers
             }
 
             return RedirectToAction("GenreList");
+        }
+        [HttpPost]
+        public IActionResult GenreCreate(AdminGenresViewModel model)
+        {
+            if (model.Name != null && model.Name.Length < 3)
+            {
+                ModelState.AddModelError("Name", "Tür adı minimum 3 karakterli olmalıdır.");
+            }
+            if (ModelState.IsValid)
+            {
+                _context.Genres.Add(new Genre { Name = model.Name });
+                _context.SaveChanges();
+
+                return RedirectToAction("GenreList");
+            }
+            return View("GenreList", GetGenres());
         }
         [HttpPost]
         public IActionResult MovieDelete(int movieId)

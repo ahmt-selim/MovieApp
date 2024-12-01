@@ -6,14 +6,22 @@
 <form asp-controller="Admin" asp-action="GenreUpdate" method="post">
     <div class="row">
         <div calss="col-md-3">
-            <input type="hidden" name="GenreId" value="@Model.GenreId"/>
-            <div class="form-group">
+            <div asp-validation-summary="All"></div>
+            <input type="hidden" name="GenreId" value="@Model.GenreId" />
+            <div class="mb-3">
                 <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control"/>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         <div class="col-md-9">
+            @for (int i = 0; i < Model.Movies.Count; i++)
+            {
+                <input type="hidden" name="Movies[@i].MovieId" value="@Model.Movies[i].MovieId" />
+                <input type="hidden" name="Movies[@i].ImageUrl" value="@Model.Movies[i].ImageUrl" />
+                <input type="hidden" name="Movies[@i].Title" value="@Model.Movies[i].Title" />
+            }
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
