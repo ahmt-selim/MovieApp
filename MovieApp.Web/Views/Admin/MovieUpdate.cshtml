@@ -2,9 +2,10 @@
 
 <h1>Edit Movie</h1>
 <hr />
-<form method="post" asp-controller="Admin" asp-action="MovieUpdate">
+<form method="post" asp-controller="Admin" asp-action="MovieUpdate" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-8">
+            <div asp-validation-summary="All"></div>
             <input type="hidden" name="MovieId" value="@Model.MovieId" /> @*Güncelleme için controllera gönderdiğimiz Movie nesnesinin id değerini burada sakladık.*@
             <div class="mb-3">
                 @*<label for="Title">Title</label>*@ @*TagHelper kütüphanesi ile aşağıdaki gibi yazabildik.*@
@@ -19,9 +20,8 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="ImageUrl"></label>
-                <input asp-for="ImageUrl" class="form-control" value="@Model.ImageUrl" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                <input type="hidden" name="ImageUrl" value="@Model.ImageUrl" />
+                <input type="file" name="file" class="form-control" />
             </div>
             <button typr="submit" class="btn btn-primary">Submit</button>
         </div>
@@ -34,14 +34,17 @@
                            name="genreIds"
                            value="@item.genre_id"
                            type="checkbox"
-                           id="genre_@item.genre_id" 
-                           @(Model.SelectedGenres.Any(i => i.genre_id == item.genre_id) ? "checked" : "")>
+                           id="genre_@item.genre_id"
+                           @(Model.GenreIds!=null?Model.GenreIds.Any(i => i == item.genre_id) ? "checked" : "":"")>
                     <label class="form-check-label" for="genre_@item.genre_id">
                         @item.Name
                     </label>
                 </div>
             }
-
+            <span asp-validation-for="GenreIds" class="text-danger"></span>
+            <div class="mt-3">
+                <img src="/img/@Model.ImageUrl" width="150" />
+            </div>
         </div>
     </div>
 

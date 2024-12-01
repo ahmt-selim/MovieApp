@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieApp.Web.Data;
 using MovieApp.Web.Entity;
 using MovieApp.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -48,8 +50,8 @@ namespace MovieApp.Web.Controllers
                 Title = m.Title,
                 Description = m.Description,
                 ImageUrl = m.ImageUrl,
-                SelectedGenres =m.Genres
-            }).FirstOrDefault(m=>m.MovieId==id);
+                GenreIds = m.Genres.Select(g => g.genre_id).ToArray()//ilgili model içindeki GenreIds int[](dizi) olduğu için ToArray ile dönen idleri diziye dönüştürdük.
+            }).FirstOrDefault(m => m.MovieId == id);
 
             ViewBag.Genres = _context.Genres.ToList();
             if (entity == null)
@@ -59,20 +61,37 @@ namespace MovieApp.Web.Controllers
             return View(entity);
         }
         [HttpPost]
-        public IActionResult MovieUpdate(AdminEditMovieViewModel model, int[] genreIds)//Buraya yazılan parametre adı viewdeki name ile aynı olmalı.
+        public IActionResult MovieUpdate(AdminEditMovieViewModel model, int[] genreIds, IFormFile file)//Buraya yazılan parametre adı viewdeki name ile aynı olmalı.
         {
-            var entity = _context.Movies.Include("Genres").FirstOrDefault(m=>m.movie_id==model.MovieId);
-            if (entity == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
-            }
+                var entity = _context.Movies.Include("Genres").FirstOrDefault(m => m.movie_id == model.MovieId);
+                if (entity == null)
+                {
+                    return NotFound();
+                }
 
-            entity.Title = model.Title;
-            entity.Description = model.Description;
-            entity.ImageUrl = model.ImageUrl;
-            entity.Genres = genreIds.Select(id => _context.Genres.FirstOrDefault(i => i.genre_id == id)).ToList();
-            _context.SaveChanges();
-            return RedirectToAction("MovieList");
+                entity.Title = model.Title;
+                entity.Description = model.Description;
+                if (file != null)
+                {
+                    var extension = Path.GetExtension(file.FileName);//Buradan ilgili dosyanın uzantısına ulaşıyoruz.
+                    var fileName = string.Format($"picture_{Guid.NewGuid()}{extension}"); //Yüklenen dosyaya benzersiz bir isim veriyoruz.
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\img", fileName);//Dosyanın kaydedileceği yolu belirtiyoruz.
+                    entity.ImageUrl = fileName;
+
+                    using(var stream = new FileStream(path, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                }
+                
+                entity.Genres = genreIds.Select(id => _context.Genres.FirstOrDefault(i => i.genre_id == id)).ToList();
+                _context.SaveChanges();
+                return RedirectToAction("MovieList");
+            }
+            ViewBag.Genres = _context.Genres.ToList();
+            return View(model);
         }
         public IActionResult Genrelist()
         {
