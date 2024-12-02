@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MovieApp.Web.Validators;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace MovieApp.Web.Models
         public string Name { get; set; }
         [Required]
         [EmailAddress(ErrorMessage = "Geçerli bir email giriniz")]
+        [EmailProviders]
         public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]
@@ -28,7 +30,11 @@ namespace MovieApp.Web.Models
         public string RePassword { get; set; }
         [Url]
         public string Url { get; set; }
-        [Range(1900,2010)]
-        public int BirthYear { get; set; }
+        //[Range(1900,2010)]
+        //public int BirthYear { get; set; }
+        [BirthDate(ErrorMessage ="Doğum tarihiniz şimdiki ve sonraki tarih olamaz")]
+        [DataType(DataType.Date)]
+        [Display(Name="Birth Date")]
+        public DateTime BirthDate{ get; set; }
     }
 }
