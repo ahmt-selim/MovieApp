@@ -1,4 +1,5 @@
 ﻿using MovieApp.Web.Entity;
+using MovieApp.Web.Validators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -43,6 +44,10 @@ namespace MovieApp.Web.Models
         [Required(ErrorMessage = "Film açıklaması girmelisiniz.")]
         [StringLength(3000, MinimumLength = 10, ErrorMessage = "Film açıklaması için 10-3000 karakter girmelisiniz.")]
         public string Description { get; set; }
+        public bool IsClassic { get; set; }
         public int[] GenreIds { get; set; }
+        [ClassicMovie(1950)]//1950 ve üstü değer girildiğinde classic film false olması gerekiyor.
+        [DataType(DataType.Date)]
+        public DateTime ReleaseDate { get; set; } = DateTime.Now;
     }
 }

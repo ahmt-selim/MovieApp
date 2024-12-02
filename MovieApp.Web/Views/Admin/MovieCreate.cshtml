@@ -10,7 +10,7 @@
                 @*<label for="Title">Title</label>*@ @*TagHelper kütüphanesi ile aşağıdaki gibi yazabildik.*@
                 @*<input type="text" name="Title" class="form-control" />*@
                 <label asp-for="Title"></label>
-                <input asp-for="Title" class="form-control"  />
+                <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="mb-3">
@@ -18,6 +18,19 @@
                 <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+
+            <div class="mb-3">
+                <label asp-for="ReleaseDate"></label>
+                <input asp-for="ReleaseDate" class="form-control" />
+                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="IsClassic"></label>
+                <input asp-for="IsClassic" type="checkbox" />
+                <span asp-validation-for="IsClassic" class="text-danger"></span>
+            </div>
+
+
             <button typr="submit" class="btn btn-primary">Submit</button>
         </div>
         <div class="col-md-4">
