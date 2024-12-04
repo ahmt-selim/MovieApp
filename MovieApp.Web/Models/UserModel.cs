@@ -1,4 +1,5 @@
-﻿using MovieApp.Web.Validators;
+﻿using Microsoft.AspNetCore.Mvc;
+using MovieApp.Web.Validators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,6 +13,7 @@ namespace MovieApp.Web.Models
         public int UserId { get; set; }
         [Required]
         [StringLength(10, ErrorMessage = "UserName için 10 karakterden fazla olamaz")]
+        [Remote(action: "VerifyUserName", controller:"User")]
         public string UserName { get; set; }
         [Required]
         //Aşağıdaki gibi kullanımlarda 0:Property ismi, 2:Max değer, 1:Min değer olarak kullanılır.

@@ -232,5 +232,13 @@ namespace MovieApp.Web.Controllers
             ViewBag.Genres = _context.Genres.ToList();
             return View(model);
         }
+        public IActionResult VerifyTitle(string Title)
+        {
+            if (_context.Movies.Any(i => i.Title == Title))
+            {
+                return Json($"zaten {Title} isimli film daha önce eklenmiş.");
+            }
+            return Json(true);
+        }
     }
 }

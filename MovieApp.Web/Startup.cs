@@ -28,6 +28,7 @@ namespace MovieApp.Web
             //options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             options.UseSqlServer(Configuration.GetConnectionString("MsSQLConnection")));
             services.AddControllersWithViews();
+                //.AddViewOptions(options => options.HtmlHelperOptions.ClientValidationEnabled=false);//Client validation larý pasif hale getirmek için bu þekilde ekleme yapýlýr.
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
-﻿using MovieApp.Web.Entity;
+﻿using Microsoft.AspNetCore.Mvc;
+using MovieApp.Web.Entity;
 using MovieApp.Web.Validators;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,8 @@ namespace MovieApp.Web.Models
     {
         [Display(Name ="Film Adı")]
         [Required(ErrorMessage ="Film adı girmelisiniz.")]
-        [StringLength(50, MinimumLength =3, ErrorMessage ="Film adı için 3-50 karakter girmelisiniz.")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Film adı için 3-50 karakter girmelisiniz.")]
+        [Remote(action: "VerifyTitle", controller:"Admin")]
         public string Title { get; set; }
         [Display(Name = "Film Açıklama")]
         [Required(ErrorMessage = "Film açıklaması girmelisiniz.")]

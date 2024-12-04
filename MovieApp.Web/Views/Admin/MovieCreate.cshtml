@@ -42,18 +42,22 @@
                            name="GenreIds"
                            value="@item.genre_id"
                            type="checkbox"
-                           id="genre_@item.genre_id" 
-                           @(Model.GenreIds != null && Model.GenreIds.Any(i => i == item.genre_id) ? "checked" : "")
-                           >
+                           id="genre_@item.genre_id"
+                           @(Model.GenreIds != null && Model.GenreIds.Any(i => i == item.genre_id) ? "checked" : "")>
                     <label class="form-check-label" for="genre_@item.genre_id">
                         @item.Name
                     </label>
                 </div>
             }
-        <span asp-validation-for="GenreIds" class="text-danger"></span>
+            <span asp-validation-for="GenreIds" class="text-danger"></span>
 
         </div>
     </div>
 
 </form>
+@section scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.js"></script>
+}
 
